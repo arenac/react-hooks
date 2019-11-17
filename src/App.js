@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 // import { Container } from './styles';
 
@@ -33,8 +33,18 @@ function App() {
     setThechnologies([...technologies, newTech]);
     setNewTech('');
   }
+
+  /**
+   * useMemo will watch the array technologies
+   * and technologies.length will be executed just in case
+   * the watched array changes
+   */
+  const technologiesSize = useMemo(() => technologies.length, [technologies]);
+
   return (
     <>
+      <strong>You have {technologiesSize} technologies</strong>
+      <br />
       <input
         type="text"
         value={newTech}

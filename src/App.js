@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 // import { Container } from './styles';
 
@@ -29,10 +29,16 @@ function App() {
     };
   }, [technologies]);
 
-  function handleAdd() {
+  /**
+   * A normal function is mounted by JS every time a variable changes,
+   * so by returning that function through useCallBack, we can specify
+   * the inputs to be watched, as the second parameter, and we can
+   * optimize the how many times JS will clean/add to the memory again
+   */
+  const handleAdd = useCallback(() => {
     setThechnologies([...technologies, newTech]);
     setNewTech('');
-  }
+  }, [newTech, technologies]);
 
   /**
    * useMemo will watch the array technologies
